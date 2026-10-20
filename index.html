@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173d2a">
+<title>Animais a Todo Tempo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f5ec;color:#203b2d;font-family:system-ui,sans-serif}
+header{background:#173d2a;color:white;padding:24px 18px;border-radius:0 0 24px 24px}
+header h1{margin:0;font-size:25px}
+header p{color:#d7e8ce;margin-bottom:0}
+main{padding:16px;max-width:720px;margin:auto}
+.stats,.panel{background:white;border-radius:18px;padding:16px;margin-bottom:16px}
+.stats{display:flex;justify-content:space-between;gap:10px}
+.stats strong{display:block;font-size:22px}
+h2{font-size:19px}
+.groups{display:flex;gap:8px;overflow-x:auto;padding-bottom:12px}
+button{border:0;border-radius:12px;padding:11px 14px;background:#dce9d4;color:#173d2a;font-weight:700;cursor:pointer}
+button.active,button.primary{background:#24663f;color:white}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px #193d2a12}
+.card img{width:100%;height:125px;object-fit:cover;background:#dce9d4}
+.card div{padding:10px}
+.card h3{font-size:15px;margin:0 0 5px}
+.card p{font-size:12px;color:#667568;margin:0 0 8px}
+.tag{font-size:11px;background:#edf2e7;padding:4px 7px;border-radius:8px}
+.bottom{position:sticky;bottom:0;background:#fff;padding:10px;display:flex;justify-content:space-around;box-shadow:0 -3px 12px #0001}
+.bottom button{background:white;font-size:12px;padding:10px 7px}
+#notice{font-size:14px;color:#24663f;margin-top:10px}
+@media(min-width:550px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header>
+<h1>🐚 Animais a Todo Tempo</h1>
+<p>Explore o incrível mundo dos invertebrados!</p>
+</header>
+<main>
+<section class="stats">
+<div><strong id="count">0</strong><span>Figurinhas</span></div>
+<div><strong id="total">12</strong><span>Na coleção</span></div>
+<div><strong id="coins">100</strong><span>Moedas 🪙</span></div>
+</section>
+<section class="panel">
+<h2>📚 Meu álbum</h2>
+<div style="height:9px;background:#e5ebdf;border-radius:9px;overflow:hidden">
+<div id="progress" style="height:100%;width:0;background:#55a66c"></div>
+</div>
+<p id="progressText">0% completado</p>
+</section>
+<h2>🔎 Explorar grupos</h2>
+<div class="groups" id="groups"></div>
+<div id="cards" class="cards"></div>
+<section class="panel" style="margin-top:18px">
+<h2>🎁 Pacotinho surpresa</h2>
+<p>Ganhe uma figurinha aleatória por 20 moedas.</p>
+<button class="primary" onclick="openPack()">Abrir pacotinho · 20 🪙</button>
+<p id="notice">Sua aventura começa aqui!</p>
+</section>
+<section class="panel">
+<h2>🔁 Minhas repetidas</h2>
+<p id="duplicates">Você ainda não tem repetidas.</p>
+<p style="font-size:12px">As trocas online entre jogadores serão adicionadas em uma próxima etapa.</p>
+</section>
+</main>
+<nav class="bottom">
+<button onclick="showGroup('Todos')">📚 Álbum</button>
+<button onclick="document.getElementById('groups').scrollIntoView({behavior:'smooth'})">🦋 Grupos</button>
+<button onclick="document.getElementById('duplicates').scrollIntoView({behavior:'smooth'})">🔁 Repetidas</button>
+<button onclick="document.querySelector('.panel:last-child').scrollIntoView({behavior:'smooth'})">👤 Coleção</button>
+</nav>
+<script>
+const animals=[
+{name:"Borboleta-monarca",group:"Insetos",rarity:"Rara",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Monarch%20Butterfly%20Danaus%20plexippus.jpg",fact:"É conhecida por suas longas migrações."},
+{name:"Joaninha",group:"Insetos",rarity:"Comum",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Coccinella%20septempunctata.jpg",fact:"Muitas joaninhas comem pulgões."},
+{name:"Abelha-do-mel",group:"Insetos",rarity:"Comum",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Honey%20bee%20on%20flower.jpg",fact:"Ajuda na polinização de muitas plantas."},
+{name:"Louva-a-deus",group:"Insetos",rarity:"Épica",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Mantis%20religiosa.jpg",fact:"É um predador que caça outros insetos."},
+{name:"Aranha-saltadora",group:"Aracnídeos",rarity:"Rara",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Jumping%20spider.jpg",fact:"Muitas espécies têm excelente visão."},
+{name:"Escorpião",group:"Aracnídeos",rarity:"Épica",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Scorpion%20in%20desert.jpg",fact:"Escorpiões são aracnídeos, não insetos."},
+{name:"Polvo",group:"Moluscos",rarity:"Lendária",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Octopus%20vulgaris.jpg",fact:"Tem oito braços e grande capacidade de aprendizagem."},
+{name:"Caracol",group:"Moluscos",rarity:"Comum",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Garden%20snail.jpg",fact:"A concha protege seu corpo."},
+{name:"Estrela-do-mar",group:"Equinodermos",rarity:"Rara",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Starfish.jpg",fact:"Não é um peixe."},
+{name:"Água-viva",group:"Cnidários",rarity:"Rara",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Jellyfish.jpg",fact:"Seus tentáculos podem ter células urticantes."},
+{name:"Minhoca",group:"Anelídeos",rarity:"Comum",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Earthworm.jpg",fact:"Ajuda a arejar o solo."},
+{name:"Caranguejo",group:"Crustáceos",rarity:"Épica",img:"https://commons.wikimedia.org/wiki/Special:FilePath/Crab.jpg",fact:"Possui um exoesqueleto rígido."}
+];
+let owned=JSON.parse(localStorage.getItem('aatt-owned')||'{}');
+let coins=Number(localStorage.getItem('aatt-coins')||100);
+let current='Todos';
+const groups=['Todos',...new Set(animals.map(a=>a.group))];
+function save(){localStorage.setItem('aatt-owned',JSON.stringify(owned));localStorage.setItem('aatt-coins',coins)}
+function showGroup(g){
+current=g;
+document.querySelectorAll('.groups button').forEach(b=>b.classList.toggle('active',b.textContent===g));
+render();
+}
+function render(){
+let list=animals.filter(a=>current==='Todos'||a.group===current);
+document.getElementById('cards').innerHTML=list.map(a=>{
+let n=owned[a.name]||0;
+return `<article class="card"><img src="${a.img}" alt="${a.name}" loading="lazy" onerror="this.style.display='none'"><div><h3>${a.name}</h3><p>${a.group} · ${a.rarity}</p><span class="tag">${n?'Possuída ×'+n:'Ainda não encontrada'}</span><p style="margin-top:9px">${a.fact}</p></div></article>`
+}).join('');
+let count=Object.values(owned).reduce((s,n)=>s+(n>0?1:0),0);
+document.getElementById('count').textContent=count;
+document.getElementById('total').textContent=animals.length;
+document.getElementById('coins').textContent=coins;
+document.getElementById('progress').style.width=(count/animals.length*100)+'%';
+document.getElementById('progressText').textContent=Math.round(count/animals.length*100)+'% completado';
+let dup=animals.filter(a=>(owned[a.name]||0)>1).map(a=>a.name+' ×'+(owned[a.name]-1));
+document.getElementById('duplicates').textContent=dup.length?dup.join(', '):'Você ainda não tem repetidas.';
+}
+function openPack(){
+if(coins<20){document.getElementById('notice').textContent='Moedas insuficientes!';return}
+coins-=20;
+let a=animals[Math.floor(Math.random()*animals.length)];
+owned[a.name]=(owned[a.name]||0)+1;
+save();render();
+document.getElementById('notice').textContent='🎉 Você ganhou: '+a.name+' — '+a.rarity+'!';
+}
+document.getElementById('groups').innerHTML=groups.map(g=>`<button onclick="showGroup('${g}')" class="${g==='Todos'?'active':''}">${g}</button>`).join('');
+render();
+</script>
+</body>
+</html>
