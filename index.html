@@ -3,413 +3,269 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Animais a Todo Tempo</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --green:#173d2b;
-  --deep:#0d281d;
-  --gold:#c9a653;
-  --paper:#f1dfb6;
-  --ink:#342b1b;
-  --cream:#fff4d8;
-}
+:root{--green:#173d2b;--gold:#c9a653;--paper:#f1dfb6;--ink:#342b1b;--cream:#fff4d8}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  color:var(--ink);
-  font-family:'DM Sans',sans-serif;
-  background:
-    radial-gradient(ellipse at top,#31583b 0%,#142f22 65%,#091b13 100%);
-  min-height:100vh;
-}
-header{
-  text-align:center;
-  color:var(--cream);
-  padding:28px 14px 22px;
-  border-bottom:4px double var(--gold);
-  background:linear-gradient(135deg,#0c291c,#244b31,#102719);
-}
+body{margin:0;color:var(--ink);font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at top,#31583b,#142f22 65%,#091b13)}
+header{text-align:center;color:var(--cream);padding:28px 14px 22px;border-bottom:4px double var(--gold);background:linear-gradient(135deg,#0c291c,#244b31,#102719)}
 header .seal{font-size:30px}
-h1{
-  font-family:'Cinzel',serif;
-  font-size:clamp(25px,6vw,42px);
-  margin:8px 0 2px;
-  color:#f3dfad;
-  text-shadow:0 2px 5px #0008;
-}
+h1{font-family:'Cinzel',serif;font-size:clamp(25px,6vw,42px);margin:8px 0 2px;color:#f3dfad}
 header p{margin:5px 0;color:#e5d3a6}
-.subtitle{
-  font-family:'Cinzel',serif;
-  letter-spacing:3px;
-  font-size:12px;
-  color:var(--gold);
-}
+.subtitle{font-family:'Cinzel',serif;letter-spacing:3px;font-size:12px;color:var(--gold)}
 main{max-width:1050px;margin:auto;padding:18px 12px 90px}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-  margin-bottom:16px;
-}
-.stat{
-  background:var(--paper);
-  border:2px solid var(--gold);
-  border-radius:10px;
-  padding:12px 5px;
-  text-align:center;
-  box-shadow:0 4px 9px #0005;
-}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:16px}
+.stat{background:var(--paper);border:2px solid var(--gold);border-radius:10px;padding:12px 5px;text-align:center;box-shadow:0 4px 9px #0005}
 .stat strong{display:block;font-family:'Cinzel',serif;font-size:21px;color:var(--green)}
 .stat span{font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.progress-box{
-  background:#0c2118;
-  border:1px solid var(--gold);
-  border-radius:10px;
-  padding:13px;
-  color:var(--cream);
-  margin-bottom:18px;
-}
+.progress-box{background:#0c2118;border:1px solid var(--gold);border-radius:10px;padding:13px;color:var(--cream);margin-bottom:18px}
 .progress-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px}
 .progress-track{height:12px;background:#354638;border-radius:20px;overflow:hidden}
 .progress-fill{height:100%;width:0;background:linear-gradient(90deg,#b58b36,#f4d98e);transition:.3s}
-.section-title{
-  color:#f1dfb6;
-  font-family:'Cinzel',serif;
-  text-align:center;
-  margin:25px 0 13px;
-  font-size:20px;
-}
-.filters{
-  display:flex;gap:8px;overflow-x:auto;padding:3px 1px 12px;
-  scrollbar-width:thin;
-}
-.filter{
-  flex-shrink:0;border:1px solid var(--gold);border-radius:20px;
-  padding:9px 13px;background:#183b29;color:#f6e8c5;
-  font-weight:700;font-size:12px;cursor:pointer;
-}
+.section-title{color:#f1dfb6;font-family:'Cinzel',serif;text-align:center;margin:25px 0 13px;font-size:20px}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:3px 1px 12px}
+.filter{flex-shrink:0;border:1px solid var(--gold);border-radius:20px;padding:9px 13px;background:#183b29;color:#f6e8c5;font-weight:700;font-size:12px;cursor:pointer}
 .filter.active{background:var(--gold);color:#282313}
-.chapter{
-  background:var(--paper);
-  border:4px double #a98136;
-  border-radius:12px;
-  padding:17px;
-  margin:10px 0 16px;
-  text-align:center;
-  box-shadow:0 5px 12px #0005;
-}
+.chapter{background:var(--paper);border:4px double #a98136;border-radius:12px;padding:17px;margin:10px 0 16px;text-align:center;box-shadow:0 5px 12px #0005}
 .chapter h2{font-family:'Cinzel',serif;color:var(--green);margin:0 0 7px}
 .chapter p{margin:0;font-size:13px;line-height:1.5}
-.album-grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-}
+.album-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media(min-width:650px){.album-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}}
 @media(min-width:900px){.album-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.sticker{
-  position:relative;
-  background:var(--paper);
-  border:3px solid #c5a45d;
-  border-radius:10px;
-  padding:7px;
-  box-shadow:0 5px 10px #0006;
-  overflow:hidden;
-  min-width:0;
-}
-.sticker::before{
-  content:"";
-  position:absolute;inset:3px;
-  border:1px solid #ad8b4d;
-  border-radius:6px;
-  pointer-events:none;
-}
-.sticker-number{
-  position:absolute;z-index:2;top:12px;left:12px;
-  background:#f8e7b9;border:1px solid #a17b35;
-  border-radius:5px;padding:3px 6px;
-  font-family:'Cinzel',serif;font-size:12px;font-weight:bold;
-}
-.art{
-  height:145px;
-  border-radius:6px;
-  margin-bottom:7px;
-  display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden;
-  background:
-    radial-gradient(circle at 50% 45%,#d5d19b,#78936a 55%,#35583d);
-  border:1px solid #a58a4e;
-}
-.art::before,.art::after{
-  content:"";position:absolute;border:1px solid #ffffff55;
-  border-radius:50%;width:125px;height:125px;
-}
+.sticker{position:relative;background:var(--paper);border:3px solid #c5a45d;border-radius:10px;padding:7px;box-shadow:0 5px 10px #0006;overflow:hidden;min-width:0}
+.sticker::before{content:"";position:absolute;inset:3px;border:1px solid #ad8b4d;border-radius:6px;pointer-events:none}
+.sticker-number{position:absolute;z-index:2;top:12px;left:12px;background:#f8e7b9;border:1px solid #a17b35;border-radius:5px;padding:3px 6px;font-family:'Cinzel',serif;font-size:12px;font-weight:bold}
+.art{height:145px;border-radius:6px;margin-bottom:7px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 45%,#d5d19b,#78936a 55%,#35583d);border:1px solid #a58a4e}
+.art::before,.art::after{content:"";position:absolute;border:1px solid #ffffff55;border-radius:50%;width:125px;height:125px}
 .art::after{width:100px;height:100px}
-.animal-art{
-  z-index:1;font-size:76px;
-  filter:drop-shadow(0 5px 3px #26351b88);
-  transform:translateY(3px);
-}
-.sticker-name{
-  font-family:'Cinzel',serif;font-size:15px;
-  font-weight:800;text-align:center;color:#292719;
-  margin:7px 0 4px;min-height:36px;
-}
+.animal-art{z-index:1;font-size:76px;filter:drop-shadow(0 5px 3px #26351b88)}
+.sticker-name{font-family:'Cinzel',serif;font-size:15px;font-weight:800;text-align:center;color:#292719;margin:7px 0 4px;min-height:36px}
 .scientific{text-align:center;font-size:10px;font-style:italic;color:#67583c}
-.tag{
-  text-align:center;font-size:10px;font-weight:bold;
-  border-radius:20px;padding:4px;margin:6px 0;
-  background:#24452e;color:#f9e8bd;
-}
-.tag.rara{background:#315c83}
-.tag.epica{background:#78438b}
-.tag.lendaria{background:#9b6a19}
-.fact{
-  font-size:11px;text-align:center;line-height:1.4;
-  min-height:32px;padding:3px 2px 6px;
-}
-.missing{
-  background:#d8c79f;
-  border:2px dashed #927b4d;
-}
+.tag{text-align:center;font-size:10px;font-weight:bold;border-radius:20px;padding:4px;margin:6px 0;background:#24452e;color:#f9e8bd}
+.tag.rara{background:#315c83}.tag.epica{background:#78438b}.tag.lendaria{background:#9b6a19}
+.fact{font-size:11px;text-align:center;line-height:1.4;min-height:32px;padding:3px 2px 6px}
+.missing{background:#d8c79f;border:2px dashed #927b4d}
 .missing .art{filter:grayscale(1);opacity:.38}
-.missing .animal-art{filter:grayscale(1);opacity:.5}
 .missing .sticker-name{color:#76694e}
-.missing .fact{color:#77694e}
-.missing .tag{background:#77705d}
-.sticker-status{
-  text-align:center;font-size:10px;font-weight:bold;
-  color:#6c572b;padding:5px 0 2px;
-}
-.pack-area{
-  background:linear-gradient(135deg,#e9d39d,#c9a45b);
-  border:4px double #fff0c4;
-  border-radius:15px;
-  text-align:center;
-  padding:20px 12px;
-  margin:25px 0;
-  box-shadow:0 6px 15px #0006;
-}
+.sticker-status{text-align:center;font-size:10px;font-weight:bold;color:#6c572b;padding:5px 0 2px}
+.pack-area{background:linear-gradient(135deg,#e9d39d,#c9a45b);border:4px double #fff0c4;border-radius:15px;text-align:center;padding:20px 12px;margin:25px 0;box-shadow:0 6px 15px #0006}
 .pack-area h2{font-family:'Cinzel',serif;color:#263d28;margin:0 0 6px}
-.pack{
-  width:125px;height:165px;margin:15px auto;
-  border:3px solid #f6e5b8;border-radius:10px;
-  background:linear-gradient(145deg,#244b32,#0e291b);
-  box-shadow:0 5px 10px #58431e;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  color:#f5dfaa;transform:rotate(-3deg);
-}
+.pack{width:125px;height:165px;margin:15px auto;border:3px solid #f6e5b8;border-radius:10px;background:linear-gradient(145deg,#244b32,#0e291b);box-shadow:0 5px 10px #58431e;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f5dfaa;transform:rotate(-3deg)}
 .pack .pack-icon{font-size:48px}
 .pack strong{font-family:'Cinzel',serif;font-size:13px;margin-top:9px}
-.pack-area button{
-  background:#173d2b;color:#fff0c8;border:2px solid #f7e1a7;
-  border-radius:25px;padding:12px 22px;font-size:14px;
-  font-weight:bold;cursor:pointer;
-}
-.pack-area button:active{transform:scale(.97)}
-#message{
-  min-height:24px;font-weight:bold;margin-top:12px;
-  color:#25432a;font-size:13px;
-}
-.duplicates{
-  background:#10291d;border:1px solid var(--gold);
-  color:var(--cream);border-radius:12px;padding:15px;margin-top:20px;
-}
+.pack-area button{background:#173d2b;color:#fff0c8;border:2px solid #f7e1a7;border-radius:25px;padding:12px 22px;font-size:14px;font-weight:bold;cursor:pointer}
+#message{min-height:24px;font-weight:bold;margin-top:12px;color:#25432a;font-size:13px;line-height:1.7}
+.duplicates{background:#10291d;border:1px solid var(--gold);color:var(--cream);border-radius:12px;padding:15px;margin-top:20px}
 .duplicates h3{font-family:'Cinzel',serif;color:#e8d29b;margin-top:0}
-.duplicate-list{font-size:13px;line-height:1.8}
-footer{
-  text-align:center;color:#d7c69c;font-size:12px;
-  padding:25px 10px;border-top:1px solid #a88a4d;
-  font-family:'Cinzel',serif;
-}
+footer{text-align:center;color:#d7c69c;font-size:12px;padding:25px 10px;border-top:1px solid #a88a4d;font-family:'Cinzel',serif}
 </style>
 </head>
-
 <body>
 <header>
-  <div class="seal">🌎 🍃 🐚</div>
-  <h1>Animais a Todo Tempo</h1>
-  <div class="subtitle">ATLAS DE HISTÓRIA NATURAL</div>
-  <p>O mundo dos pequenos seres</p>
+<div class="seal">🌎 🍃 🐚</div>
+<h1>Animais a Todo Tempo</h1>
+<div class="subtitle">ATLAS DE HISTÓRIA NATURAL</div>
+<p>O mundo dos pequenos seres</p>
 </header>
 
 <main>
-  <section class="stats">
-    <div class="stat"><strong id="ownedCount">0</strong><span>Figurinhas</span></div>
-    <div class="stat"><strong id="coinCount">100</strong><span>Moedas</span></div>
-    <div class="stat"><strong id="percent">0%</strong><span>Completado</span></div>
-  </section>
+<section class="stats">
+<div class="stat"><strong id="ownedCount">0</strong><span>Figurinhas</span></div>
+<div class="stat"><strong id="coinCount">100</strong><span>Moedas</span></div>
+<div class="stat"><strong id="percent">0%</strong><span>Completado</span></div>
+</section>
 
-  <section class="progress-box">
-    <div class="progress-top">
-      <span>Progresso do álbum</span>
-      <strong id="progressText">0 / 13</strong>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  </section>
+<section class="progress-box">
+<div class="progress-top"><span>Progresso do álbum</span><strong id="progressText">0 / 13</strong></div>
+<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</section>
 
-  <h2 class="section-title">📖 Escolha um capítulo</h2>
-  <div class="filters" id="filters"></div>
+<h2 class="section-title">📖 Escolha um capítulo</h2>
+<div class="filters" id="filters"></div>
 
-  <section class="chapter">
-    <h2 id="chapterTitle">Todos os invertebrados</h2>
-    <p id="chapterDescription">Explore a diversidade dos pequenos seres que habitam nosso planeta.</p>
-  </section>
+<section class="chapter">
+<h2 id="chapterTitle">Todos os invertebrados</h2>
+<p id="chapterDescription">Explore a diversidade dos pequenos seres que habitam nosso planeta.</p>
+</section>
 
-  <section class="album-grid" id="album"></section>
+<section class="album-grid" id="album"></section>
 
-  <section class="pack-area">
-    <h2>Pacotinhos de figurinhas</h2>
-    <p>Abra um pacote e descubra uma nova espécie!</p>
-    <div class="pack">
-      <div class="pack-icon">🪲</div>
-      <strong>ATLAS NATURAL</strong>
-      <small>COLEÇÃO VOL. I</small>
-    </div>
-    <button onclick="openPack()">🎁 Abrir pacote — 20 moedas</button>
-    <div id="message"></div>
-  </section>
+<section class="pack-area">
+<h2>Pacotinhos de figurinhas</h2>
+<p>4 figurinhas de 4 filos diferentes em cada pacote!</p>
+<div class="pack">
+<div class="pack-icon">🪲</div>
+<strong>ATLAS NATURAL</strong>
+<small>COLEÇÃO VOL. I</small>
+</div>
+<button onclick="openPack()">🎁 Abrir pacote — 20 moedas</button>
+<div id="message"></div>
+</section>
 
-  <section class="duplicates">
-    <h3>📚 Figurinhas repetidas</h3>
-    <div class="duplicate-list" id="duplicates">Nenhuma figurinha repetida ainda.</div>
-  </section>
+<section class="duplicates">
+<h3>📚 Figurinhas repetidas</h3>
+<div id="duplicates">Nenhuma figurinha repetida ainda.</div>
+</section>
 </main>
 
 <footer>
-  A natureza nunca termina de revelar seus segredos.<br>
-  — Atlas Natural —<br><br>
-  Colecione • Conheça • Preserve
+A natureza nunca termina de revelar seus segredos.<br>
+— Atlas Natural —<br><br>
+Colecione • Conheça • Preserve
 </footer>
 
 <script>
-const animals = [
- {name:"Borboleta-monarca",scientific:"Danaus plexippus",group:"Insetos",rarity:"Rara",art:"🦋",fact:"É conhecida por suas longas migrações."},
- {name:"Joaninha",scientific:"Coccinellidae",group:"Insetos",rarity:"Comum",art:"🐞",fact:"Muitas joaninhas se alimentam de pulgões."},
- {name:"Abelha-do-mel",scientific:"Apis mellifera",group:"Insetos",rarity:"Comum",art:"🐝",fact:"É uma importante polinizadora."},
- {name:"Louva-a-deus",scientific:"Mantodea",group:"Insetos",rarity:"Épica",art:"🦗",fact:"É um predador que caça outros insetos."},
- {name:"Aranha-saltadora",scientific:"Salticidae",group:"Aracnídeos",rarity:"Rara",art:"🕷️",fact:"Possui excelente visão e grande agilidade."},
- {name:"Escorpião",scientific:"Scorpiones",group:"Aracnídeos",rarity:"Épica",art:"🦂",fact:"É um aracnídeo, não um inseto."},
- {name:"Polvo",scientific:"Octopoda",group:"Moluscos",rarity:"Lendária",art:"🐙",fact:"Tem oito braços e grande capacidade de aprendizagem."},
- {name:"Caracol",scientific:"Gastropoda",group:"Moluscos",rarity:"Comum",art:"🐌",fact:"Sua concha protege seu corpo."},
- {name:"Estrela-do-mar",scientific:"Asteroidea",group:"Equinodermos",rarity:"Rara",art:"⭐",fact:"Não é um peixe e vive no ambiente marinho."},
- {name:"Água-viva",scientific:"Scyphozoa",group:"Cnidários",rarity:"Rara",art:"🪼",fact:"Possui células urticantes chamadas cnidócitos."},
- {name:"Minhoca",scientific:"Lumbricina",group:"Anelídeos",rarity:"Comum",art:"🪱",fact:"Ajuda a arejar e enriquecer o solo."},
- {name:"Caranguejo",scientific:"Brachyura",group:"Crustáceos",rarity:"Épica",art:"🦀",fact:"Possui um exoesqueleto rígido."},
- {name:"Esponja-do-mar",scientific:"Porifera",group:"Poríferos",rarity:"Lendária",art:"🧽",fact:"É um animal aquático que filtra a água."}
+const animals=[
+{name:"Borboleta-monarca",scientific:"Danaus plexippus",group:"Insetos",rarity:"Rara",art:"🦋",fact:"É conhecida por suas longas migrações."},
+{name:"Joaninha",scientific:"Coccinellidae",group:"Insetos",rarity:"Comum",art:"🐞",fact:"Muitas joaninhas se alimentam de pulgões."},
+{name:"Abelha-do-mel",scientific:"Apis mellifera",group:"Insetos",rarity:"Comum",art:"🐝",fact:"É uma importante polinizadora."},
+{name:"Louva-a-deus",scientific:"Mantodea",group:"Insetos",rarity:"Épica",art:"🦗",fact:"É um predador que caça outros insetos."},
+{name:"Aranha-saltadora",scientific:"Salticidae",group:"Aracnídeos",rarity:"Rara",art:"🕷️",fact:"Possui excelente visão e grande agilidade."},
+{name:"Escorpião",scientific:"Scorpiones",group:"Aracnídeos",rarity:"Épica",art:"🦂",fact:"É um aracnídeo, não um inseto."},
+{name:"Polvo",scientific:"Octopoda",group:"Moluscos",rarity:"Lendária",art:"🐙",fact:"Tem oito braços e grande capacidade de aprendizagem."},
+{name:"Caracol",scientific:"Gastropoda",group:"Moluscos",rarity:"Comum",art:"🐌",fact:"Sua concha protege seu corpo."},
+{name:"Estrela-do-mar",scientific:"Asteroidea",group:"Equinodermos",rarity:"Rara",art:"⭐",fact:"Não é um peixe e vive no ambiente marinho."},
+{name:"Água-viva",scientific:"Scyphozoa",group:"Cnidários",rarity:"Rara",art:"🪼",fact:"Possui células urticantes chamadas cnidócitos."},
+{name:"Minhoca",scientific:"Lumbricina",group:"Anelídeos",rarity:"Comum",art:"🪱",fact:"Ajuda a arejar e enriquecer o solo."},
+{name:"Caranguejo",scientific:"Brachyura",group:"Crustáceos",rarity:"Épica",art:"🦀",fact:"Possui um exoesqueleto rígido."},
+{name:"Esponja-do-mar",scientific:"Porifera",group:"Poríferos",rarity:"Lendária",art:"🧽",fact:"É um animal aquático que filtra a água."}
 ];
 
-const descriptions = {
- "Todos":"Explore a diversidade dos pequenos seres que habitam nosso planeta.",
- "Insetos":"O grupo mais diverso do reino animal. Possuem seis patas e corpo dividido em três regiões.",
- "Aracnídeos":"Aranhas e escorpiões pertencem a este grupo, geralmente com oito patas.",
- "Moluscos":"Animais de corpo mole, como polvos, lesmas e caracóis.",
- "Equinodermos":"Animais marinhos como estrelas-do-mar e ouriços.",
- "Cnidários":"Grupo aquático que inclui águas-vivas, corais e anêmonas.",
- "Anelídeos":"Vermes de corpo segmentado, como as minhocas.",
- "Crustáceos":"Artrópodes como caranguejos, camarões e lagostas.",
- "Poríferos":"Animais aquáticos conhecidos como esponjas."
+const descriptions={
+"Todos":"Explore a diversidade dos pequenos seres que habitam nosso planeta.",
+"Insetos":"O grupo mais diverso do reino animal. Possuem seis patas e corpo dividido em três regiões.",
+"Aracnídeos":"Aranhas e escorpiões pertencem a este grupo, geralmente com oito patas.",
+"Moluscos":"Animais de corpo mole, como polvos, lesmas e caracóis.",
+"Equinodermos":"Animais marinhos como estrelas-do-mar e ouriços.",
+"Cnidários":"Grupo aquático que inclui águas-vivas, corais e anêmonas.",
+"Anelídeos":"Vermes de corpo segmentado, como as minhocas.",
+"Crustáceos":"Artrópodes como caranguejos, camarões e lagostas.",
+"Poríferos":"Animais aquáticos conhecidos como esponjas."
 };
 
-const groups = ["Todos",...Object.keys(descriptions).filter(x=>x!=="Todos")];
-
-let owned = JSON.parse(localStorage.getItem("aatt-owned") || "[]");
-let coins = Number(localStorage.getItem("aatt-coins") ?? 100);
-let currentGroup = "Todos";
-
-if(!Array.isArray(owned)) owned=[];
+const groups=["Todos",...Object.keys(descriptions).filter(x=>x!=="Todos")];
+let owned=JSON.parse(localStorage.getItem("aatt-owned")||"[]");
+let coins=Number(localStorage.getItem("aatt-coins")??100);
+let currentGroup="Todos";
+if(!Array.isArray(owned))owned=[];
 
 function save(){
- localStorage.setItem("aatt-owned",JSON.stringify(owned));
- localStorage.setItem("aatt-coins",String(coins));
+localStorage.setItem("aatt-owned",JSON.stringify(owned));
+localStorage.setItem("aatt-coins",String(coins));
 }
 
-function countOwned(name){
- return owned.filter(x=>x===name).length;
-}
+function countOwned(name){return owned.filter(x=>x===name).length;}
 
 function renderFilters(){
- const box=document.getElementById("filters");
- box.innerHTML="";
- groups.forEach(group=>{
-  const button=document.createElement("button");
-  button.className="filter"+(currentGroup===group?" active":"");
-  button.textContent=group==="Todos"?"🌎 Todos":group;
-  button.onclick=()=>{
-   currentGroup=group;
-   renderFilters();
-   renderAlbum();
-  };
-  box.appendChild(button);
- });
+const box=document.getElementById("filters");
+box.innerHTML="";
+groups.forEach(group=>{
+const button=document.createElement("button");
+button.className="filter"+(currentGroup===group?" active":"");
+button.textContent=group==="Todos"?"🌎 Todos":group;
+button.onclick=()=>{currentGroup=group;renderFilters();renderAlbum();};
+box.appendChild(button);
+});
 }
 
 function renderAlbum(){
- const album=document.getElementById("album");
- const visible=animals.filter(a=>currentGroup==="Todos"||a.group===currentGroup);
- document.getElementById("chapterTitle").textContent=
-  currentGroup==="Todos"?"Todos os invertebrados":currentGroup;
- document.getElementById("chapterDescription").textContent=descriptions[currentGroup];
- album.innerHTML="";
+const album=document.getElementById("album");
+const visible=animals.filter(a=>currentGroup==="Todos"||a.group===currentGroup);
+document.getElementById("chapterTitle").textContent=currentGroup==="Todos"?"Todos os invertebrados":currentGroup;
+document.getElementById("chapterDescription").textContent=descriptions[currentGroup];
+album.innerHTML="";
 
- visible.forEach(animal=>{
-  const quantity=countOwned(animal.name);
-  const card=document.createElement("article");
-  card.className="sticker"+(quantity===0?" missing":"");
-  const rarityClass=animal.rarity.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-  card.innerHTML=`
-   <div class="sticker-number">${String(animals.indexOf(animal)+1).padStart(3,"0")}</div>
-   <div class="art"><div class="animal-art">${quantity>0?animal.art:"❔"}</div></div>
-   <div class="tag ${rarityClass}">${animal.group} ★ ${animal.rarity}</div>
-   <div class="sticker-name">${quantity>0?animal.name:"Figurinha faltando"}</div>
-   <div class="scientific">${quantity>0?animal.scientific:"Espécie desconhecida"}</div>
-   <div class="fact">${quantity>0?animal.fact:"Abra pacotinhos para descobrir esta espécie."}</div>
-   <div class="sticker-status">${quantity>0?"✓ COLECIONADA"+(quantity>1?" · "+quantity+" CÓPIAS":""):"NÃO COLECIONADA"}</div>
-  `;
-  album.appendChild(card);
- });
- updateStats();
+visible.forEach(animal=>{
+const quantity=countOwned(animal.name);
+const card=document.createElement("article");
+card.className="sticker"+(quantity===0?" missing":"");
+const rarityClass=animal.rarity.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+card.innerHTML=`
+<div class="sticker-number">${String(animals.indexOf(animal)+1).padStart(3,"0")}</div>
+<div class="art"><div class="animal-art">${quantity>0?animal.art:"❔"}</div></div>
+<div class="tag ${rarityClass}">${animal.group} ★ ${animal.rarity}</div>
+<div class="sticker-name">${quantity>0?animal.name:"Figurinha faltando"}</div>
+<div class="scientific">${quantity>0?animal.scientific:"Espécie desconhecida"}</div>
+<div class="fact">${quantity>0?animal.fact:"Abra pacotinhos para descobrir esta espécie."}</div>
+<div class="sticker-status">${quantity>0?"✓ COLECIONADA"+(quantity>1?" · "+quantity+" CÓPIAS":""):"NÃO COLECIONADA"}</div>`;
+album.appendChild(card);
+});
+updateStats();
 }
 
 function updateStats(){
- const unique=new Set(owned).size;
- const total=animals.length;
- const percent=Math.round(unique/total*100);
- document.getElementById("ownedCount").textContent=unique;
- document.getElementById("coinCount").textContent=coins;
- document.getElementById("percent").textContent=percent+"%";
- document.getElementById("progressText").textContent=unique+" / "+total;
- document.getElementById("progressFill").style.width=percent+"%";
+const unique=new Set(owned).size;
+const total=animals.length;
+const percent=Math.round(unique/total*100);
+document.getElementById("ownedCount").textContent=unique;
+document.getElementById("coinCount").textContent=coins;
+document.getElementById("percent").textContent=percent+"%";
+document.getElementById("progressText").textContent=unique+" / "+total;
+document.getElementById("progressFill").style.width=percent+"%";
 
- const duplicates={};
- owned.forEach(name=>{
-  duplicates[name]=(duplicates[name]||0)+1;
- });
- const repeated=Object.entries(duplicates).filter(([name,n])=>n>1);
- document.getElementById("duplicates").innerHTML=
-  repeated.length
-   ?repeated.map(([name,n])=>`${name}: ${n-1} repetida(s)`).join("<br>")
-   :"Nenhuma figurinha repetida ainda.";
+const duplicates={};
+owned.forEach(name=>{duplicates[name]=(duplicates[name]||0)+1;});
+const repeated=Object.entries(duplicates).filter(([name,n])=>n>1);
+document.getElementById("duplicates").innerHTML=
+repeated.length?repeated.map(([name,n])=>`${name}: ${n-1} repetida(s)`).join("<br>"):"Nenhuma figurinha repetida ainda.";
 }
 
 function openPack(){
- const message=document.getElementById("message");
- if(coins<20){
-  message.textContent="Você não tem moedas suficientes. Continue explorando!";
-  return;
- }
- coins-=20;
- const animal=animals[Math.floor(Math.random()*animals.length)];
- const previous=countOwned(animal.name);
- owned.push(animal.name);
- save();
- renderAlbum();
- message.textContent=previous===0
-  ?"✨ Nova figurinha descoberta: "+animal.name+"!"
-  :"🔁 Você tirou "+animal.name+" novamente! Uma repetida.";
+const message=document.getElementById("message");
+
+if(coins<20){
+message.textContent="Você não tem moedas suficientes!";
+return;
+}
+
+coins-=20;
+
+// Mede quanto de cada filo já foi colecionado
+const phyla=[...new Set(animals.map(a=>a.group))];
+
+const progress=phyla.map(group=>{
+const species=animals.filter(a=>a.group===group);
+const collected=species.filter(a=>countOwned(a.name)>0).length;
+return {group,percentage:collected/species.length};
+});
+
+// Embaralha para que filos empatados tenham chance igual
+progress.sort((a,b)=>a.percentage-b.percentage);
+let i=0;
+while(i<progress.length){
+let j=i+1;
+while(j<progress.length&&progress[j].percentage===progress[i].percentage)j++;
+for(let k=j-1;k>i;k--){
+const r=i+Math.floor(Math.random()*(k-i+1));
+[progress[k],progress[r]]=[progress[r],progress[k]];
+}
+i=j;
+}
+
+// Seleciona os quatro filos menos completos
+const selected=progress.slice(0,4);
+const discoveries=[];
+
+selected.forEach(data=>{
+const species=animals.filter(a=>a.group===data.group);
+const missing=species.filter(a=>countOwned(a.name)===0);
+const pool=missing.length?missing:species;
+const chosen=pool[Math.floor(Math.random()*pool.length)];
+owned.push(chosen.name);
+discoveries.push(chosen);
+});
+
+save();
+renderAlbum();
+
+message.innerHTML=
+"🎉 PACOTINHO ABERTO!<br><br>"+
+discoveries.map((a,index)=>
+`${index+1}. ${a.art} ${a.name} — ${a.group}`
+).join("<br>")+
+"<br><br>✨ 4 figurinhas de 4 filos diferentes!";
 }
 
 renderFilters();
